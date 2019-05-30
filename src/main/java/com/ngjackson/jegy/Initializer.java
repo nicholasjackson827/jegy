@@ -23,7 +23,7 @@ public class Initializer implements CommandLineRunner {
   @Transactional
   @Override
   public void run(String... args) throws Exception {
-    
+
     Ticket ticket2 = Ticket
         .builder()
         .summary("Second ticket!")
@@ -49,13 +49,11 @@ public class Initializer implements CommandLineRunner {
         .requester(newUser)
         .build();
 
-//    ticketRepository.save(ticket1);
     ticketRepository.save(ticket2);
     ticketRepository.save(ticket3);
 
     Ticket previouslySavedTicket = ticketRepository.getOne(4L);
     previouslySavedTicket.setSummary("Edited this ticket summary!");
-//    ticketRepository.save(previouslySavedTicket);
 
     ticketRepository.findAll().forEach(System.out::println);
   }
