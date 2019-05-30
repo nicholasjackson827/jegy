@@ -27,3 +27,6 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+## SECRETS ##
+src/main/resources/application.properties
