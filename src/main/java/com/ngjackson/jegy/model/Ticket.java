@@ -1,5 +1,6 @@
 package com.ngjackson.jegy.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,5 +27,14 @@ public class Ticket {
   @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name = "assignee_id")
   private User assignee;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Transient
+  private Long requesterUserId;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  @Transient
+  private Long assigneeUserId;
+
 
 }
