@@ -24,35 +24,34 @@ public class Initializer implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
 
-    Ticket ticket2 = Ticket
-        .builder()
-        .summary("Second ticket!")
-        .body("This is my second ticket! Woo!")
-        .requester(userRepository.findById(1L).get())
-        .build();
-
     User newUser = User
-        .builder()
-        .firstName("Bubba")
-        .lastName("Gump")
-        .email("bubba.gump@gmail.com")
-        .build();
-
+            .builder()
+            .firstName("Big")
+            .lastName("Boy")
+            .email("big.boy@gmail.com")
+            .build();
     newUser = userRepository.save(newUser);
-
     System.out.println("Just created new user! " + newUser);
 
-    Ticket ticket3 = Ticket
+    long numTickets = ticketRepository.count();
+    Ticket ticket2 = Ticket
         .builder()
-        .summary("Third ticket!")
-        .body("This is my third ticket! Woo!")
+        .summary(String.format("%dth ticket!", ++numTickets))
+        .body(String.format("This is my %dth ticket! Woo!", numTickets))
         .requester(newUser)
         .build();
 
-    ticketRepository.save(ticket2);
+    Ticket ticket3 = Ticket
+        .builder()
+        .summary(String.format("%dth ticket!", ++numTickets))
+        .body(String.format("This is my %dth ticket! Woo!", numTickets))
+        .requester(newUser)
+        .build();
+
+    ticket2 = ticketRepository.save(ticket2);
     ticketRepository.save(ticket3);
 
-    Ticket previouslySavedTicket = ticketRepository.getOne(4L);
+    Ticket previouslySavedTicket = ticketRepository.getOne(ticket2.getId());
     previouslySavedTicket.setSummary("Edited this ticket summary!");
 
     ticketRepository.findAll().forEach(System.out::println);
