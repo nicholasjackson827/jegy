@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import Navbar from "./Navbar";
 
 class TicketEdit extends Component {
   emptyTicket = {
@@ -73,6 +74,7 @@ class TicketEdit extends Component {
 
     return (
       <div>
+        <Navbar />
         {title}
         <form onSubmit={this.handleSubmit}>
           <table>
