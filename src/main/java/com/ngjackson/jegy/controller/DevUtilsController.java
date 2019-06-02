@@ -44,7 +44,7 @@ public class DevUtilsController {
     if (tableName == null) {
       ticketRepository.deleteAll();
       userRepository.deleteAll();
-      return ResponseEntity.ok().build();
+      return ResponseEntity.ok().body("Successfully cleared all data!");
     }
 
     switch (tableName.toLowerCase()) {
@@ -58,7 +58,7 @@ public class DevUtilsController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Table \"" + tableName + "\" not found.");
     }
 
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok().body("Successfully cleared table \"" + tableName + "\"!");
   }
 
   /**
@@ -96,7 +96,7 @@ public class DevUtilsController {
       ticketRepository.save(tempTicket);
     }
 
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok().body("Successfully seeded DB!");
 
   }
 

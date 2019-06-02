@@ -22,7 +22,6 @@ class TicketEdit extends Component {
 
   async componentDidMount() {
     const id = this.props.match.params.id;
-    console.log(id);
     if (id !== "new") {
       const data = await fetch(`/api/ticket/${id}`);
       const ticket = await data.json();
