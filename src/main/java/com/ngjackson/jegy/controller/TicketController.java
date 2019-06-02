@@ -60,15 +60,21 @@ public class TicketController {
   }
 
   private void populateTicket(Ticket ticket) {
-    if (ticket.getRequesterUserId() != null && ticket.getRequester() == null) {
+    // If the requester object is not null,
+    // AND the ID is not null (meaning the FE sent us one)
+    // then get the requester
+    if (ticket.getRequester() != null && ticket.getRequester().getId() != null) {
       // Fetch from the DB
-      User requester = userRepository.findById(ticket.getRequesterUserId()).orElse(null);
+      User requester = userRepository.findById(ticket.getRequester().getId()).orElse(null);
       ticket.setRequester(requester);
     }
 
-    if (ticket.getAssigneeUserId() != null && ticket.getAssignee() == null) {
+    // If the assignee object is not null,
+    // AND the ID is not null (meaning the FE sent us one)
+    // then get the assignee
+    if (ticket.getAssignee() != null && ticket.getAssignee().getId() != null) {
       // Fetch from the DB
-      User assignee = userRepository.findById(ticket.getAssigneeUserId()).orElse(null);
+      User assignee = userRepository.findById(ticket.getAssignee().getId()).orElse(null);
       ticket.setAssignee(assignee);
     }
   }

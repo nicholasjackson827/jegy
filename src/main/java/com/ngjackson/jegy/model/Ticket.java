@@ -28,13 +28,4 @@ public class Ticket {
   @JoinColumn(name = "assignee_id")
   private User assignee;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Transient
-  private Long requesterUserId;
-
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  @Transient
-  private Long assigneeUserId;
-
-
 }
