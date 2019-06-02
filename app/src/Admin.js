@@ -77,15 +77,19 @@ class Admin extends Component {
           <button type="submit">Seed the DB</button>
         </form>
 
-        <h2>Response Console</h2>
-        <pre>
-          {this.state.responseConsole.map(log => (
-            <div key={log}>
-              {log}
-              <br />
-            </div>
-          ))}
-        </pre>
+        {this.state.responseConsole.length > 0 && (
+          <div>
+            <h2>Response Console</h2>
+            <pre>
+              {this.state.responseConsole.map(log => (
+                <div key={log}>
+                  {log}
+                  <br />
+                </div>
+              ))}
+            </pre>
+          </div>
+        )}
       </div>
     );
   }
