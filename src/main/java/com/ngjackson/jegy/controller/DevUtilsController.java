@@ -89,7 +89,7 @@ public class DevUtilsController {
       Ticket tempTicket = Ticket
           .builder()
           .summary(faker.lorem().sentence())
-          .body(String.join(".", faker.lorem().sentences(4)))
+          .body(String.join(" ", faker.lorem().sentences(4)))
           .requester(getRandomUser())
           .assignee(random.nextDouble() > 0.5 ? null : getRandomUser())
           .build();
