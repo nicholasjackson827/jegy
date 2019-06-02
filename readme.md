@@ -18,8 +18,8 @@ Steps for development:
 
 To start the backend, run: 
 
-`mvn spring-boot:start`
+`mvn spring-boot:run`
 
 To start the frontend, cd into `app` and run:
  
-`yarn start`
+`yarn start` (or `npm start`)
