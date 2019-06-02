@@ -33,7 +33,7 @@ class TicketEdit extends Component {
   handleChange(event) {
     const { value, name, type } = event.target;
     let ticket = { ...this.state.ticket };
-    ticket[name] = type === "number" ? parseInt(value) : value;
+    ticket[name] = type === "number" ? parseInt(value, 10) : value;
     this.setState({ ticket });
   }
 
@@ -41,7 +41,7 @@ class TicketEdit extends Component {
     const { value } = event.target;
     let ticket = { ...this.state.ticket };
     ticket.requester = null;
-    ticket.requesterUserId = parseInt(value);
+    ticket.requesterUserId = parseInt(value, 10);
     this.setState({ ticket });
   }
 
@@ -49,7 +49,7 @@ class TicketEdit extends Component {
     const { value } = event.target;
     let ticket = { ...this.state.ticket };
     ticket.assignee = null;
-    ticket.assigneeUserId = parseInt(value);
+    ticket.assigneeUserId = parseInt(value, 10);
     this.setState({ ticket });
   }
 

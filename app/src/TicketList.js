@@ -44,7 +44,9 @@ class TicketList extends Component {
           <td>{ticket.body}</td>
           <td>{ticket.requester.firstName + " " + ticket.requester.lastName}</td>
           <td>
-            {ticket.assignee == null ? "" : ticket.assignee.firstName + ticket.assignee.lastName}
+            {ticket.assignee == null
+              ? ""
+              : ticket.assignee.firstName + " " + ticket.assignee.lastName}
           </td>
           <td>
             <Link to={"/tickets/" + ticket.id}>Edit</Link>
