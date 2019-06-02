@@ -3,11 +3,18 @@ import { Link, withRouter } from "react-router-dom";
 import Navbar from "./Navbar";
 
 class TicketEdit extends Component {
+  emptyUser = {
+    id: "",
+    firstName: "",
+    lastName: "",
+    email: ""
+  };
+
   emptyTicket = {
     summary: "",
     body: "",
-    requesterUserId: "",
-    assigneeUserId: ""
+    requester: { ...this.emptyUser },
+    assignee: { ...this.emptyUser }
   };
 
   constructor(props) {
@@ -40,16 +47,16 @@ class TicketEdit extends Component {
   handleRequesterChange(event) {
     const { value } = event.target;
     let ticket = { ...this.state.ticket };
-    ticket.requester = null;
-    ticket.requesterUserId = parseInt(value, 10);
+    ticket.requester = this.emptyUser;
+    ticket.requester.id = parseInt(value, 10);
     this.setState({ ticket });
   }
 
   handleAssigneeChange(event) {
     const { value } = event.target;
     let ticket = { ...this.state.ticket };
-    ticket.assignee = null;
-    ticket.assigneeUserId = parseInt(value, 10);
+    ticket.assignee = this.emptyUser;
+    ticket.assignee.id = parseInt(value, 10);
     this.setState({ ticket });
   }
 
@@ -121,7 +128,7 @@ class TicketEdit extends Component {
                     type="number"
                     name="requesterUserId"
                     id="requesterUserId"
-                    value={ticket.requester == null ? ticket.requesterUserId : ticket.requester.id}
+                    value={ticket.requester == null ? "" : ticket.requester.id}
                     onChange={this.handleRequesterChange}
                   />
                 </td>
@@ -135,7 +142,7 @@ class TicketEdit extends Component {
                     type="number"
                     name="assigneeUserId"
                     id="assigneeUserId"
-                    value={ticket.assignee == null ? ticket.assigneeUserId : ticket.assignee.id}
+                    value={ticket.assignee == null ? "" : ticket.assignee.id}
                     onChange={this.handleAssigneeChange}
                   />
                 </td>
