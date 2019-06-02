@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
 class TicketList extends Component {
   constructor(params) {
@@ -33,7 +34,22 @@ class TicketList extends Component {
     const { tickets, isLoading } = this.state;
 
     if (isLoading) {
-      return <p>Loading...</p>;
+      return (
+        <div>
+          <Navbar />
+          <p>Loading...</p>
+        </div>
+      );
+    }
+
+    if (tickets.length === 0) {
+      return (
+        <div>
+          <Navbar />
+          <p>No tickets in the DB!</p>
+          <Link to="/tickets/new">Add Ticket</Link>
+        </div>
+      );
     }
 
     const ticketList = tickets.map(ticket => {
@@ -44,7 +60,9 @@ class TicketList extends Component {
           <td>{ticket.body}</td>
           <td>{ticket.requester.firstName + " " + ticket.requester.lastName}</td>
           <td>
-            {ticket.assignee == null ? "" : ticket.assignee.firstName + ticket.assignee.lastName}
+            {ticket.assignee == null
+              ? ""
+              : ticket.assignee.firstName + " " + ticket.assignee.lastName}
           </td>
           <td>
             <Link to={"/tickets/" + ticket.id}>Edit</Link>
@@ -56,6 +74,7 @@ class TicketList extends Component {
 
     return (
       <div>
+        <Navbar />
         <Link to="/tickets/new">Add Ticket</Link>
         <h3>Ticket List</h3>
         <table>
