@@ -12,7 +12,7 @@ Steps for development:
 
 - Check out the project
 - cd into the directory (or open it in your IDE)
-- Rename `applicaiton.properties.example` to `application.properties`.
+- Rename `application.properties.example` to `application.properties`.
 - Fill out the required attributes in your `application.properties` (just DB info).
 - Run the `schema.sql` on your database.
 
