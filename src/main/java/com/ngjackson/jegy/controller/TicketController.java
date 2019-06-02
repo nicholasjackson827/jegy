@@ -4,7 +4,6 @@ import com.ngjackson.jegy.model.Ticket;
 import com.ngjackson.jegy.model.User;
 import com.ngjackson.jegy.repository.TicketRepository;
 import com.ngjackson.jegy.repository.UserRepository;
-import com.ngjackson.jegy.util.TicketUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

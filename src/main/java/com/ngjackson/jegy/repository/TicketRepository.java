@@ -4,8 +4,6 @@ import com.ngjackson.jegy.model.Ticket;
 import com.ngjackson.jegy.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
   Ticket findBySummary(String summary);
