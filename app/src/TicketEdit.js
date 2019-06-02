@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Navbar from "./Navbar";
+import UserPicker from "./UserPicker";
 
 class TicketEdit extends Component {
   emptyUser = {
@@ -20,6 +21,7 @@ class TicketEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
       ticket: this.emptyTicket
     };
     this.handleChange = this.handleChange.bind(this);
@@ -33,7 +35,7 @@ class TicketEdit extends Component {
     if (id !== "new") {
       const data = await fetch(`/api/ticket/${id}`);
       const ticket = await data.json();
-      this.setState({ ticket: ticket });
+      this.setState({ ticket: ticket, isLoading: false });
     }
   }
 
@@ -44,19 +46,15 @@ class TicketEdit extends Component {
     this.setState({ ticket });
   }
 
-  handleRequesterChange(event) {
-    const { value } = event.target;
+  handleRequesterChange(newRequester) {
     let ticket = { ...this.state.ticket };
-    ticket.requester = this.emptyUser;
-    ticket.requester.id = parseInt(value, 10);
+    ticket.requester = newRequester;
     this.setState({ ticket });
   }
 
-  handleAssigneeChange(event) {
-    const { value } = event.target;
+  handleAssigneeChange(newAssignee) {
     let ticket = { ...this.state.ticket };
-    ticket.assignee = this.emptyUser;
-    ticket.assignee.id = parseInt(value, 10);
+    ticket.assignee = newAssignee;
     this.setState({ ticket });
   }
 
@@ -121,30 +119,30 @@ class TicketEdit extends Component {
               </tr>
               <tr>
                 <td>
-                  <label htmlFor="requesterUserId">Requester</label>
+                  <label htmlFor="requester">Requester</label>
                 </td>
                 <td>
-                  <input
-                    type="number"
-                    name="requesterUserId"
-                    id="requesterUserId"
-                    value={ticket.requester == null ? "" : ticket.requester.id}
-                    onChange={this.handleRequesterChange}
-                  />
+                  {!this.state.isLoading ? (
+                    <UserPicker
+                      id="requester"
+                      user={ticket.requester}
+                      handleNewUser={this.handleRequesterChange}
+                    />
+                  ) : null}
                 </td>
               </tr>
               <tr>
                 <td>
-                  <label htmlFor="assigneeUserId">Assignee</label>
+                  <label htmlFor="assignee">Assignee</label>
                 </td>
                 <td>
-                  <input
-                    type="number"
-                    name="assigneeUserId"
-                    id="assigneeUserId"
-                    value={ticket.assignee == null ? "" : ticket.assignee.id}
-                    onChange={this.handleAssigneeChange}
-                  />
+                  {!this.state.isLoading ? (
+                    <UserPicker
+                      id="assignee"
+                      user={ticket.assignee}
+                      handleNewUser={this.handleAssigneeChange}
+                    />
+                  ) : null}
                 </td>
               </tr>
             </tbody>
