@@ -1,7 +1,7 @@
 package com.ngjackson.jegy.controller;
 
-import com.ngjackson.jegy.model.Ticket;
-import com.ngjackson.jegy.model.User;
+import com.ngjackson.jegy.model.ticket.Ticket;
+import com.ngjackson.jegy.model.user.User;
 import com.ngjackson.jegy.repository.TicketRepository;
 import com.ngjackson.jegy.repository.UserRepository;
 import org.slf4j.Logger;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.metadata.GroupConversionDescriptor;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;

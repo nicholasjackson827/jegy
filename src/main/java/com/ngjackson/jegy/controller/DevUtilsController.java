@@ -1,8 +1,8 @@
 package com.ngjackson.jegy.controller;
 
 import com.github.javafaker.Faker;
-import com.ngjackson.jegy.model.Ticket;
-import com.ngjackson.jegy.model.User;
+import com.ngjackson.jegy.model.ticket.Ticket;
+import com.ngjackson.jegy.model.user.User;
 import com.ngjackson.jegy.repository.TicketRepository;
 import com.ngjackson.jegy.repository.UserRepository;
 import org.slf4j.Logger;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 

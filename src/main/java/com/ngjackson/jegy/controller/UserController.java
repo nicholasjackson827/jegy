@@ -1,7 +1,6 @@
 package com.ngjackson.jegy.controller;
 
-import com.ngjackson.jegy.model.User;
-import com.ngjackson.jegy.repository.TicketRepository;
+import com.ngjackson.jegy.model.user.User;
 import com.ngjackson.jegy.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
