@@ -1,6 +1,6 @@
-package com.ngjackson.jegy.model;
+package com.ngjackson.jegy.model.ticket;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.ngjackson.jegy.model.user.User;
 import lombok.*;
 
 import javax.persistence.*;

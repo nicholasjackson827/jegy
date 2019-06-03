@@ -1,4 +1,4 @@
-package com.ngjackson.jegy.model;
+package com.ngjackson.jegy.model.user;
 
 import lombok.*;
 
