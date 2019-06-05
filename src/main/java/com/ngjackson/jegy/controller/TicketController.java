@@ -42,19 +42,18 @@ public class TicketController {
   }
 
   @PostMapping("/ticket")
-  ResponseEntity<Ticket> createTicket(@Valid @RequestBody TicketForm ticket) throws URISyntaxException {
-    Ticket ticketAwaitingCreation = marshaler.marshalToTicket(ticket);
-    Ticket newTicket = ticketRepository.save(ticketAwaitingCreation);
+  ResponseEntity<Ticket> createTicket(@Valid @RequestBody TicketForm form) throws URISyntaxException {
+    Ticket ticket = marshaler.marshalToTicket(form);
+    Ticket newTicket = ticketRepository.save(ticket);
     return ResponseEntity.created(new URI("/api/ticket/" + newTicket.getId()))
         .body(newTicket);
   }
 
   @PutMapping("/ticket/{id}")
-  ResponseEntity<Ticket> updateTicket(@PathVariable("id") Long id, @Valid @RequestBody TicketForm ticket) {
-    Ticket ticketToBeUpdated = marshaler.marshalToTicket(ticket);
-    System.out.println(ticket.toString());
-    ticketToBeUpdated.setId(id);
-    Ticket result = ticketRepository.save(ticketToBeUpdated);
+  ResponseEntity<Ticket> updateTicket(@PathVariable("id") Long id, @Valid @RequestBody TicketForm form) {
+    Ticket ticket = marshaler.marshalToTicket(form);
+    ticket.setId(id);
+    Ticket result = ticketRepository.save(ticket);
     return ResponseEntity.ok().body(result);
   }
 
