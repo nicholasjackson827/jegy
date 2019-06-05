@@ -1,9 +1,11 @@
 package com.ngjackson.jegy.controller;
 
 import com.ngjackson.jegy.model.ticket.Ticket;
+import com.ngjackson.jegy.model.ticket.form.TicketForm;
 import com.ngjackson.jegy.model.user.User;
 import com.ngjackson.jegy.repository.TicketRepository;
 import com.ngjackson.jegy.repository.UserRepository;
+import com.ngjackson.jegy.service.TicketService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ public class TicketController {
   private final Logger log = LoggerFactory.getLogger(TicketController.class);
   private TicketRepository ticketRepository;
   private UserRepository userRepository;
+  private TicketService ticketService;
 
   @GetMapping("/tickets")
   Collection<Ticket> getTickets() {
@@ -37,17 +40,17 @@ public class TicketController {
   }
 
   @PostMapping("/ticket")
-  ResponseEntity<Ticket> createTicket(@Valid @RequestBody Ticket ticket) throws URISyntaxException {
-    populateTicket(ticket);
+  ResponseEntity<Ticket> createTicket(@Valid @RequestBody TicketForm form) throws URISyntaxException {
+    Ticket ticket = marshaler.marshalToTicket(form);
     Ticket newTicket = ticketRepository.save(ticket);
     return ResponseEntity.created(new URI("/api/ticket/" + newTicket.getId()))
         .body(newTicket);
   }
 
   @PutMapping("/ticket")
-  ResponseEntity<Ticket> updateTicket(@Valid @RequestBody Ticket ticket) {
-    populateTicket(ticket);
-    System.out.println(ticket);
+  ResponseEntity<Ticket> updateTicket(@PathVariable("id") Long ticketId, @Valid @RequestBody TicketForm form) {
+    Ticket ticket = marshaler.marshalToTicket(form);
+    ticket.setId(ticketId);
     Ticket result = ticketRepository.save(ticket);
     return ResponseEntity.ok().body(result);
   }
@@ -58,28 +61,9 @@ public class TicketController {
     return ResponseEntity.ok().build();
   }
 
-  private void populateTicket(Ticket ticket) {
-    // If the requester object is not null,
-    // AND the ID is not null (meaning the FE sent us one)
-    // then get the requester
-    if (ticket.getRequester() != null && ticket.getRequester().getId() != null) {
-      // Fetch from the DB
-      User requester = userRepository.findById(ticket.getRequester().getId()).orElse(null);
-      ticket.setRequester(requester);
-    }
-
-    // If the assignee object is not null,
-    // AND the ID is not null (meaning the FE sent us one)
-    // then get the assignee
-    if (ticket.getAssignee() != null && ticket.getAssignee().getId() != null) {
-      // Fetch from the DB
-      User assignee = userRepository.findById(ticket.getAssignee().getId()).orElse(null);
-      ticket.setAssignee(assignee);
-    }
-  }
-
   public TicketController(TicketRepository ticketRepository, UserRepository userRepository) {
     this.ticketRepository = ticketRepository;
     this.userRepository = userRepository;
+    this.ticketService = new TicketService(ticketRepository, userRepository);
   }
 }
