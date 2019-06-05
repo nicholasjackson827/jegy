@@ -22,8 +22,8 @@ public class TicketFormTicketMarshaler {
         TicketForm form = new TicketForm();
         form.setSummary(ticket.getSummary());
         form.setBody(ticket.getBody());
-        form.setRequester(ticket.getRequester().getId());
-        form.setAssignee(ticket.getAssignee().getId());
+        form.setRequesterUserId(ticket.getRequester().getId());
+        form.setAssigneeUserId(ticket.getAssignee().getId());
         return form;
     }
 }

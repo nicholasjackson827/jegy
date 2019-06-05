@@ -1,5 +1,8 @@
 package com.ngjackson.jegy.model.form;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class Form {
 
     private final Map<String, Object> params;

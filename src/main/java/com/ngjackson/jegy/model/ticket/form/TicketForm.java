@@ -39,4 +39,14 @@ public class TicketForm extends Form {
     public Long getAssigneeUserId() {
         return (Long)super.getParam("assigneeUserId");
     }
+
+    @Override
+    public String toString() {
+        return "TicketForm{" +
+                "summary='" + getSummary() + '\'' +
+                ", body='" + getBody() + '\'' +
+                ", requesterUserId=" + getRequesterUserId() +
+                ", assigneeUserId=" + getAssigneeUserId() +
+                '}';
+    }
 }

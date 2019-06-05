@@ -1,6 +1,7 @@
 package com.ngjackson.jegy.controller;
 
 import com.ngjackson.jegy.model.ticket.Ticket;
+import com.ngjackson.jegy.model.ticket.TicketFormTicketMarshaler;
 import com.ngjackson.jegy.model.ticket.form.TicketForm;
 import com.ngjackson.jegy.model.user.User;
 import com.ngjackson.jegy.repository.TicketRepository;
@@ -25,6 +26,7 @@ public class TicketController {
   private final Logger log = LoggerFactory.getLogger(TicketController.class);
   private TicketRepository ticketRepository;
   private UserRepository userRepository;
+  private TicketFormTicketMarshaler marshaler;
   private TicketService ticketService;
 
   @GetMapping("/tickets")
@@ -40,18 +42,19 @@ public class TicketController {
   }
 
   @PostMapping("/ticket")
-  ResponseEntity<Ticket> createTicket(@Valid @RequestBody TicketForm form) throws URISyntaxException {
-    Ticket ticket = marshaler.marshalToTicket(form);
-    Ticket newTicket = ticketRepository.save(ticket);
+  ResponseEntity<Ticket> createTicket(@Valid @RequestBody TicketForm ticket) throws URISyntaxException {
+    Ticket ticketAwaitingCreation = marshaler.marshalToTicket(ticket);
+    Ticket newTicket = ticketRepository.save(ticketAwaitingCreation);
     return ResponseEntity.created(new URI("/api/ticket/" + newTicket.getId()))
         .body(newTicket);
   }
 
-  @PutMapping("/ticket")
-  ResponseEntity<Ticket> updateTicket(@PathVariable("id") Long ticketId, @Valid @RequestBody TicketForm form) {
-    Ticket ticket = marshaler.marshalToTicket(form);
-    ticket.setId(ticketId);
-    Ticket result = ticketRepository.save(ticket);
+  @PutMapping("/ticket/{id}")
+  ResponseEntity<Ticket> updateTicket(@PathVariable("id") Long id, @Valid @RequestBody TicketForm ticket) {
+    Ticket ticketToBeUpdated = marshaler.marshalToTicket(ticket);
+    System.out.println(ticket.toString());
+    ticketToBeUpdated.setId(id);
+    Ticket result = ticketRepository.save(ticketToBeUpdated);
     return ResponseEntity.ok().body(result);
   }
 
@@ -64,6 +67,7 @@ public class TicketController {
   public TicketController(TicketRepository ticketRepository, UserRepository userRepository) {
     this.ticketRepository = ticketRepository;
     this.userRepository = userRepository;
+    this.marshaler = new TicketFormTicketMarshaler(userRepository);
     this.ticketService = new TicketService(ticketRepository, userRepository);
   }
 }
