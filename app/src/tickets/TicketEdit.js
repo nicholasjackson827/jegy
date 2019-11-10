@@ -33,11 +33,13 @@ class TicketEdit extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
     let ticket = this.state.ticket;
-    console.log("hi");
+    // If the ID of the ticket we're trying to view is not "new", then get the
+    // existing ticket object for editing
     if (id !== "new") {
       const data = await fetch(`/api/ticket/${id}`);
       ticket = await data.json();
     }
+    // Otherwise, the ticket gets left as-is and we set to isLoading to false
     this.setState({ ticket: ticket, isLoading: false });
   }
 
