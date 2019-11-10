@@ -22,8 +22,12 @@ Swap the `.ps1` files with `.sh` if you're on Linux / OS X.
 
 To start the backend, run: 
 
-`mvn spring-boot:run`
+```
+mvn spring-boot:run
+```
 
 To start the frontend, cd into `app` and run:
  
-`yarn start` (or `npm start`)
+```
+yarn start
+```
