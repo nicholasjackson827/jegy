@@ -32,11 +32,13 @@ class TicketEdit extends Component {
 
   async componentDidMount() {
     const id = this.props.match.params.id;
+    let ticket = this.state.ticket;
+    console.log("hi");
     if (id !== "new") {
       const data = await fetch(`/api/ticket/${id}`);
-      const ticket = await data.json();
-      this.setState({ ticket: ticket, isLoading: false });
+      ticket = await data.json();
     }
+    this.setState({ ticket: ticket, isLoading: false });
   }
 
   handleChange(event) {
