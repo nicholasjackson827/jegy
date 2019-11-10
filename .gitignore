@@ -29,5 +29,4 @@ HELP.md
 .vscode/
 
 ## SECRETS ##
-src/main/resources/application.properties
 exportSchema.ps1

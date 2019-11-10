@@ -10,16 +10,24 @@ Ensure you have Java 11, npm (or yarn), and a MySQL instance running.
 
 Steps for development: 
 
-- Check out the project
-- cd into the directory (or open it in your IDE)
-- Rename `application.properties.example` to `application.properties`.
-- Fill out the required attributes in your `application.properties` (just DB info).
-- Run the `schema.sql` on your database.
+To start the database, run: 
+
+```
+cd database
+docker kill jegy-mysql; docker rm jegy-mysql;
+.\dockerBuild.ps1; .\dockerRun.ps1;
+```
+
+Swap the `.ps1` files with `.sh` if you're on Linux / OS X. 
 
 To start the backend, run: 
 
-`mvn spring-boot:run`
+```
+mvn spring-boot:run
+```
 
 To start the frontend, cd into `app` and run:
  
-`yarn start` (or `npm start`)
+```
+yarn start
+```
