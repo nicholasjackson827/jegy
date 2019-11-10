@@ -22,6 +22,7 @@ class TicketEdit extends Component {
     super(props);
     this.state = {
       isLoading: true,
+      id: 0,
       ticket: this.emptyTicket
     };
     this.handleChange = this.handleChange.bind(this);
@@ -35,7 +36,7 @@ class TicketEdit extends Component {
     if (id !== "new") {
       const data = await fetch(`/api/ticket/${id}`);
       const ticket = await data.json();
-      this.setState({ ticket: ticket, isLoading: false });
+      this.setState({ id: id, ticket: ticket, isLoading: false });
     }
   }
 
@@ -61,21 +62,29 @@ class TicketEdit extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const { ticket } = this.state;
+    const {id } = this.state.id;
+    let form = { summary: ticket.summary,
+      body: ticket.body,
+      requesterUserId: ticket.requester.id,
+      assigneeUserId: ticket.assignee.id
+    }
 
-    await fetch("/api/ticket", {
+    console.log(JSON.stringify(form));
+    await fetch("/api/ticket" + (ticket.id ? "/" + ticket.id : ""), {
       method: ticket.id ? "PUT" : "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(ticket)
+      body: JSON.stringify(form)
     });
     this.props.history.push("/tickets");
   }
 
   render() {
     const { ticket } = this.state;
-    const title = <h2>{ticket.id ? "Edit Ticket" : "Add Ticket"}</h2>;
+    const id = this.state.id;
+    const title = <h2>{id ? "Edit Ticket" : "Add Ticket"}</h2>;
 
     return (
       <div>
@@ -87,7 +96,7 @@ class TicketEdit extends Component {
             <tbody>
               <tr>
                 <td>Ticket ID</td>
-                <td>{ticket.id}</td>
+                <td>{id}</td>
               </tr>
               <tr>
                 <td>
