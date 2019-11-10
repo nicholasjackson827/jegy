@@ -1,0 +1,1 @@
+docker exec -it jegy-mysql bash

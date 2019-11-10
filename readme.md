@@ -18,6 +18,8 @@ docker kill jegy-mysql; docker rm jegy-mysql;
 .\dockerBuild.ps1; .\dockerRun.ps1;
 ```
 
+Swap the `.ps1` files with `.sh` if you're on Linux / OS X. 
+
 To start the backend, run: 
 
 `mvn spring-boot:run`
